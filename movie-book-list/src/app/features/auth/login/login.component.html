@@ -1,0 +1,50 @@
+<h2>Login</h2>
+<form nz-form [formGroup]="form" (ngSubmit)="submit()">
+  <nz-form-item>
+    <nz-form-label [nzRequired]="true" nzFor="email">Email</nz-form-label>
+    <nz-form-control nzErrorTip="Email invalid">
+      <input nz-input id="email" formControlName="email" placeholder="email" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzRequired]="true" nzFor="password">Parola</nz-form-label>
+    <nz-form-control nzErrorTip="Parolă obligatorie">
+      <input
+        nz-input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="parola"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <label nz-checkbox formControlName="remember">Remember me</label>
+
+  <div style="margin-top: 16px">
+    <button nz-button nzType="primary" htmlType="submit">Login</button>
+  </div>
+
+  <div style="margin-top: 8px">
+    <button
+      nz-button
+      nzType="link"
+      type="button"
+      (click)="
+        form.patchValue({ email: 'eve.holt@reqres.in', password: 'cityslicka' })
+      "
+    >
+      Folosește datele demo (reqres)
+    </button>
+  </div>
+
+  @if (error) {
+    <nz-alert
+      nzType="error"
+      [nzMessage]="error"
+      nzShowIcon
+      style="margin-top: 12px"
+    ></nz-alert>
+  }
+</form>

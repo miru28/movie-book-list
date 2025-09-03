@@ -1,0 +1,56 @@
+<form nz-form [formGroup]="form">
+  <nz-form-item>
+    <nz-form-label [nzRequired]="true">Titlu</nz-form-label>
+    <nz-form-control nzErrorTip="Titlul este obligatoriu">
+      <input nz-input formControlName="title" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzRequired]="true">Tip</nz-form-label>
+    <nz-form-control>
+      <nz-select formControlName="kind">
+        <nz-option nzValue="book" nzLabel="Book"></nz-option>
+        <nz-option nzValue="movie" nzLabel="Movie"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzRequired]="true">Autor/Regizor</nz-form-label>
+    <nz-form-control nzErrorTip="Obligatoriu">
+      <input nz-input formControlName="creator" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzRequired]="true">Pagini/Minute</nz-form-label>
+    <nz-form-control nzErrorTip="Număr valid">
+      <input nz-input type="number" formControlName="length" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzRequired]="true">An</nz-form-label>
+    <nz-form-control nzErrorTip="An valid">
+      <input nz-input type="number" formControlName="year" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>Rating</nz-form-label>
+    <nz-form-control>
+      <app-rating
+        [value]="form.value.rating || 0"
+        (valueChange)="form.get('rating')?.setValue($event)"
+      ></app-rating>
+    </nz-form-control>
+  </nz-form-item>
+
+  <div class="actions">
+    <button nz-button (click)="cancel.emit()" type="button">Anulează</button>
+    <button nz-button nzType="primary" (click)="onSave()" type="button">
+      Salvează
+    </button>
+  </div>
+</form>

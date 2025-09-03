@@ -1,0 +1,138 @@
+<div class="toolbar">
+  <input
+    nz-input
+    [formControl]="search"
+    placeholder="Caută după titlu, autor/regizor, an..."
+    style="max-width: 360px"
+  />
+  <button nz-button nzType="primary" (click)="openAdd()">+ Add</button>
+</div>
+
+<nz-table
+  #nzTable
+  [nzData]="data()"
+  [nzFrontPagination]="false"
+  [nzShowPagination]="false"
+>
+  <thead>
+    <tr>
+      <th
+        nzColumnKey="title"
+        nzShowSort
+        (nzSortOrderChange)="onSort('title', $event)"
+      >
+        Titlu
+      </th>
+      <th
+        nzColumnKey="kind"
+        nzShowSort
+        (nzSortOrderChange)="onSort('kind', $event)"
+      >
+        Tip
+      </th>
+      <th
+        nzColumnKey="creator"
+        nzShowSort
+        (nzSortOrderChange)="onSort('creator', $event)"
+      >
+        Autor/Regizor
+      </th>
+      <th
+        nzColumnKey="length"
+        nzShowSort
+        (nzSortOrderChange)="onSort('length', $event)"
+      >
+        Pagini/Minute
+      </th>
+      <th
+        nzColumnKey="year"
+        nzShowSort
+        (nzSortOrderChange)="onSort('year', $event)"
+      >
+        An
+      </th>
+      <th
+        nzColumnKey="rating"
+        nzShowSort
+        (nzSortOrderChange)="onSort('rating', $event)"
+      >
+        Rating
+      </th>
+      <th>Acțiuni</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (it of nzTable.data; track it.id) {
+      <tr>
+        <td>{{ it.title }}</td>
+        <td>{{ it.kind }}</td>
+        <td>{{ it.creator }}</td>
+        <td>{{ it.length }}</td>
+        <td>{{ it.year }}</td>
+        <td>
+          <app-rating
+            [value]="it.rating"
+            (valueChange)="updateRating(it, $event)"
+          >
+          </app-rating>
+        </td>
+        <td class="actions">
+          <button nz-button nzType="default" (click)="openEdit(it)">
+            Edit
+          </button>
+
+          <button
+            nz-button
+            nzDanger
+            nz-popconfirm
+            nzPopconfirmTitle="Sigur ștergi „{{ it.title }}”?"
+            (nzOnConfirm)="delete(it)"
+          >
+            Delete
+          </button>
+
+          <button nz-button (click)="openReview(it)">
+            {{ it.review ? "Vezi/Edit recenzie" : "Adaugă recenzie" }}
+          </button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</nz-table>
+
+<!-- Modal Add/Edit -->
+<nz-modal
+  [(nzVisible)]="itemModalOpen"
+  [nzTitle]="editing ? 'Edit item' : 'Add item'"
+  (nzOnCancel)="itemModalOpen = false"
+  [nzFooter]="null"
+  [nzWidth]="600"
+>
+  <div *nzModalContent>
+    <app-item-form
+      [initial]="editing"
+      (save)="saveItem($event)"
+      (cancel)="itemModalOpen = false"
+    >
+    </app-item-form>
+  </div>
+</nz-modal>
+
+<!-- Modal Review -->
+<nz-modal
+  [(nzVisible)]="reviewModalOpen"
+  nzTitle="Recenzie"
+  (nzOnCancel)="reviewModalOpen = false"
+  [nzFooter]="null"
+  [nzWidth]="600"
+>
+  <div *nzModalContent>
+    <app-review-form
+      [initial]="reviewEditing"
+      (save)="saveReview($event)"
+      (cancel)="reviewModalOpen = false"
+    >
+    </app-review-form>
+  </div>
+</nz-modal>

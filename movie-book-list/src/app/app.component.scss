@@ -1,0 +1,18 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar .brand {
+  color: #fff;
+  font-weight: 600;
+}
+.topbar nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.topbar nav a {
+  color: #fff;
+  text-decoration: none;
+}

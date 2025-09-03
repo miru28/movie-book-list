@@ -1,0 +1,18 @@
+<nz-layout>
+  <nz-header class="topbar">
+    <div class="brand">Movie/Book List</div>
+    <nav>
+      <a routerLink="/library">Library</a>
+      @if (!auth.isLoggedIn()) {
+        <a routerLink="/auth/login">Login</a>
+        <a routerLink="/auth/register">Register</a>
+      }
+      @if (auth.isLoggedIn()) {
+        <button nz-button nzType="default" (click)="logout()">Logout</button>
+      }
+    </nav>
+  </nz-header>
+  <nz-content style="padding: 24px">
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>

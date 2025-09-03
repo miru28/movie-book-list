@@ -1,0 +1,55 @@
+<h2>Register</h2>
+<form nz-form [formGroup]="form" (ngSubmit)="submit()">
+  <nz-form-item>
+    <nz-form-label nzFor="firstName" [nzRequired]="true">Prenume</nz-form-label>
+    <nz-form-control nzErrorTip="Prenume obligatoriu">
+      <input nz-input id="firstName" formControlName="firstName" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="lastName" [nzRequired]="true">Nume</nz-form-label>
+    <nz-form-control nzErrorTip="Nume obligatoriu">
+      <input nz-input id="lastName" formControlName="lastName" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="email" [nzRequired]="true">Email</nz-form-label>
+    <nz-form-control nzErrorTip="Email invalid">
+      <input nz-input id="email" formControlName="email" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="password" [nzRequired]="true">Parolă</nz-form-label>
+    <nz-form-control [nzErrorTip]="pwdTpl">
+      <input
+        nz-input
+        id="password"
+        type="password"
+        formControlName="password"
+      />
+      <ng-template #pwdTpl>
+        Parola min. 6 caractere, cu literă mare, mică, cifră și caracter
+        special.
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="confirmPassword" [nzRequired]="true"
+      >Confirmare</nz-form-label
+    >
+    <nz-form-control nzErrorTip="Parolele nu coincid">
+      <input
+        nz-input
+        id="confirmPassword"
+        type="password"
+        formControlName="confirmPassword"
+      />
+    </nz-form-control>
+  </nz-form-item>
+
+  <button nz-button nzType="primary" htmlType="submit">Înregistrare</button>
+</form>
